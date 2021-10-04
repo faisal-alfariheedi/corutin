@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
         pu=findViewById(R.id.pu)
 
         adv.setOnClickListener(){
-            
+
             requestApi()
 
         }
@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
             while (cont) {
                 val data = async {
 
-                    fetchRandomAdvice()
+                    getadvv()
 
                 }.await()
 
@@ -59,18 +59,18 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun fetchRandomAdvice():String{
+    private fun getadvv():String{
 
-        var response=""
+        var repl=""
         try {
-            response =URL(advurl).readText(Charsets.UTF_8)
+            repl =URL(advurl).readText(Charsets.UTF_8)
 
         }catch (e:Exception)
         {
             println("Error $e")
 
         }
-        return response
+        return repl
 
     }
 
@@ -79,12 +79,12 @@ class MainActivity : AppCompatActivity() {
         withContext(Dispatchers.Main)
         {
 
-            val jsonObject = JSONObject(data)
-            val slip = jsonObject.getJSONObject("slip")
+            val jsobj = JSONObject(data)
+            val slip = jsobj.getJSONObject("slip")
             val id = slip.getInt("id")
-            val advice = slip.getString("advice")
+            val adv = slip.getString("advice")
 
-            tvadv.text = advice
+            tvadv.text = adv
 
         }
 
